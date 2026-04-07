@@ -49,6 +49,7 @@
     <div id="webcam-container"></div>
     <div id="label-container"></div>
     <div id="message"></div>
+    <div id="box"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
@@ -111,8 +112,19 @@
         const messageEl = document.getElementById("message");
         if (topClass.className === "Class 3 - Open Hand" && topClass.probability > 0.85) {
             messageEl.textContent = "Nice Hand!";
+            messageEl.style.fontSize = "1.5rem";
+            messageEl.style.color = "#2563eb"; // blue
         } else {
             messageEl.textContent = "";
+        }
+
+        const box = document.getElementById("box");
+        if (topClass.className === "Class 1 - Thumbs Up" && topClass.probability > 0.7) {
+            box.style.transform = "translateX(-100px)";
+        } else if (topClass.className === "Class 3 - Open Hand" && topClass.probability > 0.7) {
+            box.style.transform = "translateX(100px)";
+        } else {
+            box.style.transform = "translateX(0)";
         }
 
         // topClass.className is the winning label
